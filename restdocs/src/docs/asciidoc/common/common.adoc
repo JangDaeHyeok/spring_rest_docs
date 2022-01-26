@@ -1,0 +1,27 @@
+ifndef::snippets[]
+:snippets: ./build/generated-snippets
+endif::[]
+
+= API Document
+
+= COMMON
+:doctype: book
+:icons: font
+[[common]]
+include::{snippets}/common/common-response-fields.adoc[]
+
+
+= GENDER
+:doctype: book
+:icons: font
+
+[[gender]]
+include::{snippets}/common/custom-response-fields-beneath-data.gender.adoc[]
+
+
+= PHONE KIND
+:doctype: book
+:icons: font
+
+[[phoneKind]]
+include::{snippets}/common/custom-response-fields-beneath-data.phonekind.adoc[]

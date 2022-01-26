@@ -1,0 +1,65 @@
+plugins {
+	id 'org.springframework.boot' version '2.5.2'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+	// adoc 파일 변환, build 디렉토리에 복사하기 위한 plugin 추가
+	id "org.asciidoctor.jvm.convert" version "3.3.2"
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+// 스니펫 생성 디렉토리 전역변수 설정
+ext {
+	snippetsDir = file('build/generated-snippets')
+}
+
+// 스니펫으로 문서 작성 후 build - docs - asciidoc 하위에 생기는 html 파일을 into 경로로 복사
+bootJar {
+	dependsOn asciidoctor
+	copy {
+		from "${asciidoctor.outputDir}"
+		into 'BOOT-INF/classes/static/docs'
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+}
+
+test {
+	useJUnitPlatform()
+	outputs.dir snippetsDir
+}
+
+// 아스키닥터 설정
+asciidoctor {
+	inputs.dir snippetsDir
+	dependsOn test
+}
+
+// 아스키닥터 실행 전 처음으로 기존에 존재하는 docs 삭제
+asciidoctor.doFirst {
+	delete file('src/main/resources/static/docs')
+}
+
+// from 파일을 into 경로로 복사
+task copyDocument(type: Copy) {
+	dependsOn asciidoctor
+	from file("build/docs/asciidoc")
+	into file("src/main/resources/static/docs")
+}
+
+build {
+	dependsOn copyDocument
+}

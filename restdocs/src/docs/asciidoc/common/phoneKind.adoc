@@ -1,0 +1,10 @@
+ifndef::snippets[]
+:snippets: ./build/generated-snippets
+endif::[]
+
+= API Document(phoneKind)
+:doctype: book
+:icons: font
+
+[[phoneKind]]
+include::{snippets}/common/custom-response-fields-beneath-data.phonekind.adoc[]

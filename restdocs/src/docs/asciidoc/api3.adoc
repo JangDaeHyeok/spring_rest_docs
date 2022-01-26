@@ -1,0 +1,15 @@
+ifndef::snippets[]
+:snippets: ./build/generated-snippets
+endif::[]
+
+== REQUEST
+
+include::{snippets}/hello3/http-request.adoc[]
+
+include::{snippets}/hello3/request-parameters.adoc[]
+
+== RESPONSE
+
+include::{snippets}/hello3/http-response.adoc[]
+
+include::{snippets}/hello3/response-fields.adoc[]
