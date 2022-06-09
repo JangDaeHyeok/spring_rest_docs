@@ -10,6 +10,7 @@ import static org.springframework.restdocs.request.RequestDocumentation.requestP
 import static org.springframework.restdocs.snippet.Attributes.key;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +26,6 @@ import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.constraints.ConstraintDescriptions;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
-import org.springframework.restdocs.payload.PayloadDocumentation;
 import org.springframework.restdocs.snippet.Attributes;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -56,17 +56,17 @@ public class HelloControllerTest {
 				.andDo(document("hello",
 						preprocessRequest(prettyPrint()),
 						preprocessResponse(prettyPrint()),
-						PayloadDocumentation.requestFields(
-								PayloadDocumentation.fieldWithPath("data").type(JsonFieldType.STRING)
+						requestFields(
+								fieldWithPath("data").type(JsonFieldType.STRING)
 									.description("입력 데이터")
 								),
-						PayloadDocumentation.responseFields(
-								PayloadDocumentation.fieldWithPath("data").type(JsonFieldType.STRING)
+						responseFields(
+								fieldWithPath("data").type(JsonFieldType.STRING)
 								.attributes(Attributes.key("format").value("아무렇게나!"))
 								.description("반환 데이터").optional(),
-								PayloadDocumentation.fieldWithPath("result").type(JsonFieldType.STRING)
+								fieldWithPath("result").type(JsonFieldType.STRING)
 								.description("결과"),
-								PayloadDocumentation.fieldWithPath("msg").type(JsonFieldType.STRING)
+								fieldWithPath("msg").type(JsonFieldType.STRING)
 								.description("메시지")
 								)
 						)
@@ -84,13 +84,13 @@ public class HelloControllerTest {
 						preprocessRequest(prettyPrint()),
 						preprocessResponse(prettyPrint()),
 						requestParameters(parameterWithName("name").description("입력 파라미터").optional()),
-						PayloadDocumentation.responseFields(
-								PayloadDocumentation.fieldWithPath("data").type(JsonFieldType.STRING)
+						responseFields(
+								fieldWithPath("data").type(JsonFieldType.STRING)
 								.attributes(Attributes.key("format").value("아무렇게나!!"))
 								.description("반환 데이터").optional(),
-								PayloadDocumentation.fieldWithPath("result").type(JsonFieldType.STRING)
+								fieldWithPath("result").type(JsonFieldType.STRING)
 								.description("결과"),
-								PayloadDocumentation.fieldWithPath("msg").type(JsonFieldType.STRING)
+								fieldWithPath("msg").type(JsonFieldType.STRING)
 								.description("메시지")
 								)
 						)
@@ -109,13 +109,13 @@ public class HelloControllerTest {
 						preprocessRequest(prettyPrint()),
 						preprocessResponse(prettyPrint()),
 						pathParameters(parameterWithName("name").description("입력 파라미터")),
-						PayloadDocumentation.responseFields(
-								PayloadDocumentation.fieldWithPath("data").type(JsonFieldType.STRING)
+						responseFields(
+								fieldWithPath("data").type(JsonFieldType.STRING)
 								.attributes(Attributes.key("format").value("아무렇게나!!"))
 								.description("반환 데이터").optional(),
-								PayloadDocumentation.fieldWithPath("result").type(JsonFieldType.STRING)
+								fieldWithPath("result").type(JsonFieldType.STRING)
 								.description("결과"),
-								PayloadDocumentation.fieldWithPath("msg").type(JsonFieldType.STRING)
+								fieldWithPath("msg").type(JsonFieldType.STRING)
 								.description("메시지")
 								)
 						)
@@ -142,28 +142,28 @@ public class HelloControllerTest {
 		.andDo(document("hello_dto",
 				preprocessRequest(prettyPrint()),
 				preprocessResponse(prettyPrint()),
-				PayloadDocumentation.requestFields(
-						PayloadDocumentation.fieldWithPath("name").type(JsonFieldType.STRING)
+				requestFields(
+						fieldWithPath("name").type(JsonFieldType.STRING)
 							.description("이름").attributes(key("constraint").value(helloDTOConstraints.descriptionsForProperty("name"))),
-						PayloadDocumentation.fieldWithPath("gender").type(JsonFieldType.STRING)
+						fieldWithPath("gender").type(JsonFieldType.STRING)
 							.description("성별").attributes(key("constraint").value(helloDTOConstraints.descriptionsForProperty("gender"))),
-						PayloadDocumentation.fieldWithPath("phoneKind").type(JsonFieldType.STRING)
+						fieldWithPath("phoneKind").type(JsonFieldType.STRING)
 							.description("모바일기기 종류").attributes(key("constraint").value(helloDTOConstraints.descriptionsForProperty("phoneKind"))),
-						PayloadDocumentation.fieldWithPath("email").type(JsonFieldType.STRING)
+						fieldWithPath("email").type(JsonFieldType.STRING)
 							.description("email").attributes(key("constraint").value(helloDTOConstraints.descriptionsForProperty("email")))
 						),
-				PayloadDocumentation.responseFields(
-						PayloadDocumentation.fieldWithPath("result").type(JsonFieldType.STRING)
+				responseFields(
+						fieldWithPath("result").type(JsonFieldType.STRING)
 						.description("결과"),
-						PayloadDocumentation.fieldWithPath("msg").type(JsonFieldType.STRING)
+						fieldWithPath("msg").type(JsonFieldType.STRING)
 						.description("메시지"),
-						PayloadDocumentation.fieldWithPath("data.name").type(JsonFieldType.STRING)
+						fieldWithPath("data.name").type(JsonFieldType.STRING)
 						.description("이름").optional(),
-						PayloadDocumentation.fieldWithPath("data.gender").type(JsonFieldType.STRING)
+						fieldWithPath("data.gender").type(JsonFieldType.STRING)
 						.description("성별").optional(),
-						PayloadDocumentation.fieldWithPath("data.phoneKind").type(JsonFieldType.STRING)
+						fieldWithPath("data.phoneKind").type(JsonFieldType.STRING)
 						.description("모바일기기 종류").optional(),
-						PayloadDocumentation.fieldWithPath("data.email").type(JsonFieldType.STRING)
+						fieldWithPath("data.email").type(JsonFieldType.STRING)
 						.description("email").optional()
 						)
 				)
